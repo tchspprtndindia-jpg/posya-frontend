@@ -3,11 +3,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const DOMAIN_URL = process.env.DOMAIN;
 
-
-export default function BlogListing() {
 
 interface Post {
   id: number;
@@ -19,12 +18,11 @@ interface Post {
   category?: string;
 }
 
-const [posts, setPosts] = useState<Post[]>([]);
-
+export default function BlogListing() {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     setLoading(true);
@@ -40,9 +38,7 @@ const [posts, setPosts] = useState<Post[]>([]);
       .finally(() => setLoading(false));
   }, [currentPage]);
 
-  type FormatDate = (dateString: string) => string;
-
-  const formatDate: FormatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     if (!dateString) return "";
     return new Date(dateString).toLocaleDateString(undefined, {
       year: "numeric",
@@ -51,12 +47,12 @@ const [posts, setPosts] = useState<Post[]>([]);
     });
   };
 
-const getImageUrl = (image?: string): string => {
-  if (!image) return "/images/default.jpg";
-  return image.startsWith("http") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
-};
-
-
+  const getImageUrl = (image?: string): string => {
+    if (!image) return "/images/default.jpg";
+    return image.startsWith("http")
+      ? image
+      : `${DOMAIN_URL}/uploads/posts/${image}`;
+  };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -67,7 +63,7 @@ const getImageUrl = (image?: string): string => {
           <p className="text-center">Loading posts...</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -85,7 +81,10 @@ const getImageUrl = (image?: string): string => {
                 </div>
                 <div className="p-4">
                   <h2 className="text-lg font-semibold mb-2 line-clamp-2">
-                    <a href={`/blog/${post.slug}`} className="hover:text-green-700">
+                    <a
+                      href={`/blog/${post.slug}`}
+                      className="hover:text-green-700"
+                    >
                       {post.title}
                     </a>
                   </h2>
@@ -93,7 +92,7 @@ const getImageUrl = (image?: string): string => {
                     {post.description || "No description"}
                   </p>
                   <div className="text-gray-500 text-xs flex justify-between items-center">
-                    <span>{formatDate(post.created_at)}</span>
+                    <span>{formatDate(post.created_at || "")}</span>
                     <span>{post.category || "Uncategorized"}</span>
                   </div>
                 </div>
