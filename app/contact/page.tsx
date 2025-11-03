@@ -12,6 +12,7 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   
+ 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -45,8 +46,6 @@ export default function Contact() {
       setLoading(false);
     }
   };
-
-
 
 
   return (
