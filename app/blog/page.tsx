@@ -39,9 +39,9 @@ export default function BlogListing() {
     });
   };
 
-  const getImageUrl = (image) => {
+  const getImageUrl = (image?: string) => {
     if (!image) return "/images/default.jpg";
-    return image.startsWith("http") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
+    return image.startsWith("https") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
   };
 
   return (
