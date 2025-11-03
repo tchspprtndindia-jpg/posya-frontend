@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const DOMAIN_URL = process.env.DOMAIN;
-
+// ✅ FIXED: NEXT_PUBLIC_ prefix zaroori hai
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const DOMAIN_URL = process.env.NEXT_PUBLIC_DOMAIN || '';
 
 interface Post {
   id: number;
@@ -23,28 +23,48 @@ export default function BlogListing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${BASE_URL}posts?page=${currentPage}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const response = await fetch(`${BASE_URL}posts?page=${currentPage}`);
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts");
+        }
+
+        const data = await response.json();
+        
         if (data.status && data.posts) {
           setPosts(data.posts.data || data.posts);
           setLastPage(data.posts.last_page || 1);
         }
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+      } catch (err) {
+        console.error("Error:", err);
+        setError("Failed to load posts. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, [currentPage]);
 
-  const formatDate = (dateString: string): string => {
+  const formatDate = (dateString?: string): string => {
     if (!dateString) return "";
-    return new Date(dateString).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+    try {
+      return new Date(dateString).toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch {
+      return "";
+    }
   };
 
   const getImageUrl = (image?: string): string => {
@@ -59,15 +79,25 @@ export default function BlogListing() {
       <div className="max-w-7xl mx-auto px-6">
         <h1 className="text-3xl font-bold mb-10">All Blog Posts</h1>
 
+        {/* ✅ FIXED: Error state added */}
+        {error && (
+          <div className="text-center text-red-600 bg-red-50 p-4 rounded mb-6">
+            {error}
+          </div>
+        )}
+
         {loading ? (
           <p className="text-center">Loading posts...</p>
+        ) : posts.length === 0 ? (
+          <p className="text-center text-gray-600">No posts found.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post: Post) => (
+            {posts.map((post) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition"
               >
@@ -76,6 +106,7 @@ export default function BlogListing() {
                     src={getImageUrl(post.featured_image)}
                     alt={post.title || "Post Image"}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
                   />
                 </div>
@@ -92,7 +123,7 @@ export default function BlogListing() {
                     {post.description || "No description"}
                   </p>
                   <div className="text-gray-500 text-xs flex justify-between items-center">
-                    <span>{formatDate(post.created_at || "")}</span>
+                    <span>{formatDate(post.created_at)}</span>
                     <span>{post.category || "Uncategorized"}</span>
                   </div>
                 </div>
@@ -102,33 +133,35 @@ export default function BlogListing() {
         )}
 
         {/* Pagination */}
-        <div className="flex justify-center items-center mt-10 gap-4">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
-            className={`px-4 py-2 rounded ${
-              currentPage === 1
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-green-900 text-white hover:bg-green-800"
-            }`}
-          >
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {lastPage}
-          </span>
-          <button
-            disabled={currentPage === lastPage}
-            onClick={() => setCurrentPage(currentPage + 1)}
-            className={`px-4 py-2 rounded ${
-              currentPage === lastPage
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-green-900 text-white hover:bg-green-800"
-            }`}
-          >
-            Next
-          </button>
-        </div>
+        {posts.length > 0 && (
+          <div className="flex justify-center items-center mt-10 gap-4">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === 1
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-900 text-white hover:bg-green-800"
+              }`}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {lastPage}
+            </span>
+            <button
+              disabled={currentPage === lastPage}
+              onClick={() => setCurrentPage(currentPage + 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === lastPage
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-900 text-white hover:bg-green-800"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
