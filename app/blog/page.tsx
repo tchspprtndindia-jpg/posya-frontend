@@ -39,12 +39,11 @@ export default function BlogListing() {
     });
   };
 
-  type GetImageUrl = (image?: string) => string;
+const getImageUrl = (image?: string): string => {
+  if (!image) return "/images/default.jpg";
+  return image.startsWith("http") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
+};
 
-  const getImageUrl: GetImageUrl = (image) => {
-    if (!image) return "/images/default.jpg";
-    return image.startsWith("http") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
-  };
 
 
   return (
