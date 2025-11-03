@@ -28,15 +28,16 @@ export default function BlogListing() {
       .finally(() => setLoading(false));
   }, [currentPage]);
 
-const formatDate = (dateString: string) => {
-  if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+  type FormatDate = (dateString: string) => string;
 
+  const formatDate: FormatDate = (dateString) => {
+    if (!dateString) return "";
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   const getImageUrl = (image) => {
     if (!image) return "/images/default.jpg";
