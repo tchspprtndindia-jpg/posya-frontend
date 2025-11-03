@@ -39,10 +39,13 @@ export default function BlogListing() {
     });
   };
 
-  const getImageUrl = (image?: string) => {
+  type GetImageUrl = (image?: string) => string;
+
+  const getImageUrl: GetImageUrl = (image) => {
     if (!image) return "/images/default.jpg";
-    return image.startsWith("https") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
+    return image.startsWith("http") ? image : `${DOMAIN_URL}/uploads/posts/${image}`;
   };
+
 
   return (
     <section className="py-20 bg-gray-50">
