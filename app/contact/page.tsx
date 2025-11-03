@@ -12,11 +12,15 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const res = await fetch(`${BASE_URL}contact`, {
@@ -29,7 +33,7 @@ export default function Contact() {
 
       if (res.ok && data.success) {
         toast.success("Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" }); 
+        setFormData({ name: "", email: "", message: "" });
         setSubmitted(true);
       } else {
         toast.error(data.message || "Something went wrong!");
@@ -38,9 +42,10 @@ export default function Contact() {
       toast.error("Failed to send message. Try again later.");
       console.error(err);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
+
 
 
 
