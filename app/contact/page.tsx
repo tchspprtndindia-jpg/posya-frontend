@@ -94,7 +94,7 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder=" "
                 required
-                rows="5"
+                rows={5}
                 whileFocus={{ scale: 1.02 }}
                 className="peer block w-full px-3 pt-5 pb-2 text-white placeholder-transparent border-b-2 border-[#a0d8b2] focus:outline-none focus:border-[#0d3b2e] bg-transparent resize-none transition-all duration-300"
               ></motion.textarea>
