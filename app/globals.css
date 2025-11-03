@@ -1,0 +1,542 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    font-family: "Ubuntu", sans-serif;
+  }
+}
+
+body {
+  background: #f2eee9;
+  color: var(--foreground);
+  font-family: "Ubuntu", sans-serif!important;
+}
+
+header{
+  background: #fcf9f2;
+  /* padding: 4px 20px; */
+}
+
+.header-logo{
+    color: #948151;
+    font-size: 19px;
+    letter-spacing: 3px
+}
+
+nav a{
+    text-transform: capitalize !important;
+    font-weight: bold;
+    transition: all .5s;
+    color: #0d3b2e !important;
+    font-family: Ubuntu, sans-serif !important;
+    font-size: 14px !important;
+}
+
+nav a:hover{
+      color: #554118 !important;
+}
+
+
+p, a, h1, h2, h3, h4, h5,h6, span, li{
+  font-family: "Ubuntu", sans-serif!important;
+}
+
+.lucide-user,
+.lucide-heart,
+.lucide-search,
+.lucide-shopping-bag {
+  color: #0d3b2e;
+  transition: color 0.5s;
+}
+
+.lucide-user:hover,
+.lucide-heart:hover,
+.lucide-search:hover,
+.lucide-shopping-bag:hover {
+  color: #554118 !important;
+}
+
+.posya-logo span{
+    color: #765a3a;
+    letter-spacing: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 10px;
+    text-align: center;
+}
+
+.cusDashboardTab{
+  color: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #0d3b2e!important; 
+  width: 28px;
+  height: 28px;
+  background: #fcf9f2;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px !important; /* smaller arrow icon */
+}
+
+.slider .btn{
+    color: #0d3b2e;
+    cursor: pointer;
+    background: #fcf9f2;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 10px;
+    font-size: 14px;
+    transition: 0.5s;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.swiper-navigation-icon{
+  width: 8px!important;
+}
+
+.slider h2{
+  color: #fcf9f2;
+}
+
+.slider p{
+  color: #fcf9f2;
+}
+
+
+@keyframes popup-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popup-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.popup-enter {
+  animation: popup-fade-in 0.3s ease-out forwards;
+}
+
+.popup-exit {
+  animation: popup-fade-out 0.3s ease-in forwards;
+}
+
+.searchPopUp {
+  background: #fcf9f2;
+}
+
+
+.topHeading h2{
+    color: #0d3b2e;
+    font-family: Ubuntu, sans-serif !important;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 0px!important;
+}
+.topHeading span{
+  background: #0d3b2e;
+}
+
+
+.categoryNameButton{
+  color: white;
+  font-size: 18px;
+}
+
+
+.categoryTitle{
+    text-align: center;
+    color: #f2eee9;
+    background: #0d3b2e;
+    border-radius: 0 20px;
+    padding: 9px;
+    font-size: 16px;
+    text-transform: uppercase;
+    align-items: center;
+}
+
+.product-wrapper{
+      background: #ffffff;
+}
+
+.lucide-menu{
+  color: #0d3b2e;
+}
+
+.cart-button{
+    background: #0d3b2e;
+    font-size: 13px;
+    color: #f2eee9;
+}
+
+.product-slider-button .lucide-chevron-left, .lucide-chevron-right{
+   color: #0d3b2e;
+}
+
+.product-slider-button{
+      background: #f2eee9;
+}
+
+.product-wrapper .producName{
+    font-family: 'Ubuntu';
+    font-weight: 800;
+    color: #0d3b2e;
+    font-size: 20px;
+}
+
+.product-wrapper .productDes{
+        font-size: 15px;
+        color: #5b5b5b;
+        font-family: 'Ubuntu';
+}
+
+.ProductPrice svg, span
+{
+    color: #0d3b2e;
+}
+
+.product-wrapper .cartButton{
+    background: #0d3b2e;
+    font-size: 13px;
+    color: #f2eee9;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.product-wrapper .wishlistButton{
+    color: #f2eee9;
+    background: #d800b1;
+    font-size: 13px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.wishlistButton svg{
+  color: #f2eee9;
+}
+.wishlistButton svg:hover{
+  color: #000000;
+}
+
+.lucide-pause{
+  color: #0d3b2e;
+}
+
+.lucide-play{
+  color: #0d3b2e;
+}
+
+.video-overlay{
+  background-color: color-mix(in oklab, #0d3b2e 30%, #0d3b2e00);
+}
+
+.video-section h2{
+    font-family: 'Ubuntu';
+    color: #f2eee9;
+    font-size: 40px;
+}
+
+.video-section p{
+  font-family: 'Ubuntu';
+  text-align: center;
+  color: #f2eee9;
+}
+
+
+.explore-btn{
+    color: #eaeceb;
+    cursor: pointer;
+    background: #0d3b2e;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all .5s;
+}
+
+.explore-btn:hover{
+    color: #0d3b2e;
+    background: #eaeceb;
+    transition: all .5s;
+}
+
+.why-us{
+    background: #0d3b2e;
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+.why-us h2{
+   font-family: 'Ubuntu', sans-serif !important;
+}
+
+
+.theme-white-color{
+  color: #f2eee9;
+}
+.theme-white-bg-color
+{
+  background: #f2eee9;
+}
+
+.font-ubantu{
+  font-family: 'Ubuntu', sans-serif !important;
+}
+
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.cartItems .heading{
+    color: #0d3b2e;
+    font-family: Ubuntu, sans-serif !important;
+    font-weight: 900;
+}
+
+.cartItems .lucide-trash-2{
+    color: #ff5700;
+    cursor: pointer;
+
+}
+
+.cartItems .lucide-x{
+    color: #000000;
+    cursor: pointer;
+}
+
+.cartItems .heading{
+    font-family: 'Ubuntu', sans-serif !important;
+    font-weight: 800;
+    color: #0d3b2e;
+    font-size: 16px;
+}
+
+.cartItems .qty{
+        font-size: 13px;
+        color: #5b5b5b;
+        font-family: 'Ubuntu', sans-serif !important;
+}
+.cartItems .price{
+    font-family: 'Ubuntu', sans-serif !important;
+    font-weight: 800;
+    color: #ff5700;
+    font-size: 16px;
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: 450px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #dddddd 25%,
+    #cfcfcf 50%,
+    #bbbbbb 75%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.commentUser{
+  background-color: #0d3b2e!important;
+}
+
+.cName{
+ color: #0d3b2e!important; 
+ text-transform: capitalize!important;
+}
+
+.placeholderImages{
+    height: 80px;
+    width: 80px
+}
+
+.viewProductButton{
+  border-radius: 50px;
+    font-size: 14px;
+    background: #0d3b2e;
+}
+.wishListButton:hover .lucide-heart{
+  color: white!important;
+}
+
+button{
+  cursor: pointer;
+}
+
+/* Premium NProgress style */
+#nprogress .bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px!important;
+  z-index: 9999;
+  border-radius: 50px!important;
+  transform-origin: left;
+  transition: width 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Glow tip at the front */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #ffffff, 0 0 10px #ffffff;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -2px);
+}
+
+/* Hide spinner */
+#nprogress .spinner {
+  display: none;
+}
+
+
+#nprogress .bar {
+  background: linear-gradient(
+    90deg,
+    #8153ff,  /* start color */
+    #ffee00,  /* middle color */
+    #00ff55   /* end color */
+  )!important;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* ya jitna width chahiye */
+}
+
+.grayClor{
+  color: #bbbbbb!important;
+}
+
+.topBuddge{
+    background: #0d3b2e!important;
+    color: #fcf9f2 !important;
+}
+
+.footerSpan span{
+  color: #fcf9f2!important;
+}
+
+.mobNav{
+  z-index: 999999;
+}
+
+.logoTagLine{
+  font-size: 10px;
+  color: #0d3b2e;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.discount{
+  color: #00ff55;
+}
+
+
+li{
+  list-style: circle !important;
+}
+
+
+.reverseLoginButton{
+  color: #00a63e;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.customerSidenavButtons>span{
+  color: #fcf9f2;
+}
+
+.customerLogoutButton{
+  background: #fcf9f2;
+  color: #032e15;
+}
+
+.orderButtonsLink{
+   color: #fcf9f2!important;
+}
+
+.orderProductNameLinking{
+      color: #00a63e;
+      font-weight: 700;
+}
