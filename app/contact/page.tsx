@@ -70,24 +70,23 @@ export default function Contact() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {["name", "email"].map((field) => (
-              <div key={field} className="relative z-0 w-full">
-                <motion.input
-                  type={field === "email" ? "email" : "text"}
-                  name={field}
-                  value={formData[field]}
-                  onChange={handleChange}
-                  placeholder=" "
-                  required
-                  whileFocus={{ scale: 1.02 }}
-                  className="peer block w-full px-3 pt-5 pb-2 text-white placeholder-transparent border-b-2 border-[#a0d8b2] focus:outline-none focus:border-[#0d3b2e] bg-transparent transition-all duration-300"
-                />
-                <label className="absolute left-3 top-2 text-[#a0d8b2] text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-white peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-[#0d3b2e] peer-focus:text-sm">
-                  {field === "name" ? "Full Name" : "Email Address"}
-                </label>
-              </div>
-            ))}
-
+              {(["name", "email"] as const).map((field) => (
+                <div key={field} className="relative z-0 w-full">
+                  <motion.input
+                    type={field === "email" ? "email" : "text"}
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleChange}
+                    placeholder=" "
+                    required
+                    whileFocus={{ scale: 1.02 }}
+                    className="peer block w-full px-3 pt-5 pb-2 text-white placeholder-transparent border-b-2 border-[#a0d8b2] focus:outline-none focus:border-[#0d3b2e] bg-transparent transition-all duration-300"
+                  />
+                  <label className="absolute left-3 top-2 text-[#a0d8b2] text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-white peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-[#0d3b2e] peer-focus:text-sm">
+                    {field === "name" ? "Full Name" : "Email Address"}
+                  </label>
+                </div>
+              ))}
             <div className="relative z-0 w-full">
               <motion.textarea
                 name="message"
