@@ -730,11 +730,6 @@ export default function CheckoutPage() {
                       <span className="font-semibold text-gray-900">
                         {item.name}
                       </span>
-                      {item.sku && (
-                        <span className="text-xs text-gray-500 ml-2">
-                          #{item.sku}
-                        </span>
-                      )}
                     </div>
 
                     <div className="text-sm text-gray-600 mt-1">
