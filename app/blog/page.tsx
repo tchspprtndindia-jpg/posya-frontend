@@ -8,7 +8,19 @@ const DOMAIN_URL = process.env.DOMAIN;
 
 
 export default function BlogListing() {
-  const [posts, setPosts] = useState([]);
+
+interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string;
+  featured_image?: string;
+  created_at?: string;
+  category?: string;
+}
+
+const [posts, setPosts] = useState<Post[]>([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
