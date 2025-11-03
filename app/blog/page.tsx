@@ -18,11 +18,21 @@ interface Post {
   category?: string;
 }
 
+// ✅ FIXED: API Response interface
+interface ApiResponse {
+  status: boolean;
+  posts: {
+    data?: Post[];
+    last_page?: number;
+  } | Post[];
+}
+
 export default function BlogListing() {
+  // ✅ FIXED: Explicit type annotation
   const [posts, setPosts] = useState<Post[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [lastPage, setLastPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -37,15 +47,24 @@ export default function BlogListing() {
           throw new Error("Failed to fetch posts");
         }
 
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
         
         if (data.status && data.posts) {
-          setPosts(data.posts.data || data.posts);
-          setLastPage(data.posts.last_page || 1);
+          // ✅ Handle both paginated and direct array response
+          if (Array.isArray(data.posts)) {
+            setPosts(data.posts);
+            setLastPage(1);
+          } else {
+            setPosts(data.posts.data || []);
+            setLastPage(data.posts.last_page || 1);
+          }
+        } else {
+          setPosts([]);
         }
       } catch (err) {
         console.error("Error:", err);
         setError("Failed to load posts. Please try again.");
+        setPosts([]); // ✅ Empty array on error
       } finally {
         setLoading(false);
       }
@@ -79,7 +98,7 @@ export default function BlogListing() {
       <div className="max-w-7xl mx-auto px-6">
         <h1 className="text-3xl font-bold mb-10">All Blog Posts</h1>
 
-        {/* ✅ FIXED: Error state added */}
+        {/* ✅ Error state */}
         {error && (
           <div className="text-center text-red-600 bg-red-50 p-4 rounded mb-6">
             {error}
@@ -92,7 +111,7 @@ export default function BlogListing() {
           <p className="text-center text-gray-600">No posts found.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -133,7 +152,7 @@ export default function BlogListing() {
         )}
 
         {/* Pagination */}
-        {posts.length > 0 && (
+        {posts.length > 0 && lastPage > 1 && (
           <div className="flex justify-center items-center mt-10 gap-4">
             <button
               disabled={currentPage === 1}
