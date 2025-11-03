@@ -89,15 +89,15 @@ export default function Contact() {
               ))}
             <div className="relative z-0 w-full">
               <motion.textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder=" "
-                required
-                rows={5}
-                whileFocus={{ scale: 1.02 }}
-                className="peer block w-full px-3 pt-5 pb-2 text-white placeholder-transparent border-b-2 border-[#a0d8b2] focus:outline-none focus:border-[#0d3b2e] bg-transparent resize-none transition-all duration-300"
-              ></motion.textarea>
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder=" "
+                  required
+                  rows={5}
+                  whileFocus={{ scale: 1.02 }}
+                  className="peer block w-full px-3 pt-5 pb-2 text-white placeholder-transparent border-b-2 border-[#a0d8b2] focus:outline-none focus:border-[#0d3b2e] bg-transparent resize-none transition-all duration-300"
+              />
               <label className="absolute left-3 top-2 text-[#a0d8b2] text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-white peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-[#0d3b2e] peer-focus:text-sm">
                 Your Message
               </label>
