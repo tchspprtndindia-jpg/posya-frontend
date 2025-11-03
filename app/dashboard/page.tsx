@@ -54,8 +54,8 @@ export default function CustomerDashboard() {
         const data = await res.json();
         setUser(data.user);
         setNewEmail(data.user.email || "");
-      } catch (err) {
-        toast.error(err.message);
+      } catch (err: any) {
+        toast.error(err?.message || "Something went wrong");
         router.push("/login");
       } finally {
         setLoading(false);
@@ -86,7 +86,7 @@ export default function CustomerDashboard() {
 
         const data = await res.json();
         setOrders(data.orders);
-      } catch (err) {
+      } catch (err:any) {
         toast.error(err.message);
       } finally {
         setLoadingOrders(false);
@@ -104,7 +104,7 @@ export default function CustomerDashboard() {
       });
       const data = await res.json();
       if (res.ok) setUserRequests(data.returns);
-    } catch (err) {
+    } catch (err:any) {
       console.log("Failed to fetch requests", err);
     }
   };
@@ -162,7 +162,7 @@ export default function CustomerDashboard() {
 
       setUser(data.user);
       toast.success("Profile updated successfully!");
-    } catch (err) {
+    } catch (err:any) {
       toast.error(err.message);
     }
   };
@@ -207,7 +207,7 @@ export default function CustomerDashboard() {
       const ordersData = await ordersRes.json();
       setOrders(ordersData.orders);
       
-    } catch (err) {
+    } catch (err:any) {
       toast.error(err.message);
     }
   };
